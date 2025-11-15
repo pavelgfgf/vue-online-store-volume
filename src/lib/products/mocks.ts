@@ -5,7 +5,7 @@ export const mockProducts: Product[] = [
   {
     id: 1,
     name: "Pioneer TS-A1600C",
-    category: "акустика",
+    category: "Акустика",
     subcategory: "компонентная",
     price: 12500,
     oldPrice: 14900,
@@ -26,7 +26,7 @@ export const mockProducts: Product[] = [
   {
     id: 2,
     name: 'Акустика Pride Ruby Light 8"',
-    category: "акустика",
+    category: "Акустика",
     subcategory: "компонентная",
     price: 8900,
     oldPrice: null,
@@ -39,7 +39,7 @@ export const mockProducts: Product[] = [
       мощность: "100 Вт",
       импеданс: "4 Ом",
       чувствительность: "88 дБ",
-      частотныйДиапазон: "65-22000 Гц"
+      Диапазон: "65-22000 Гц"
     },
     description: "Коаксиальные динамики с сбалансированным звуком",
     shortDescription: "6.5-дюймовые коаксиальные динамики"
@@ -47,7 +47,7 @@ export const mockProducts: Product[] = [
   {
     id: 3,
     name: "Kenwood DMX8020DABS",
-    category: "головныеУстройства",
+    category: "Головные Устройства",
     subcategory: "2DIN",
     price: 34900,
     oldPrice: 38900,
@@ -68,7 +68,7 @@ export const mockProducts: Product[] = [
   {
     id: 4,
     name: "JBL Stage 1000",
-    category: "сабвуферы",
+    category: "Сабвуферы",
     subcategory: "активный",
     price: 21500,
     oldPrice: 24900,
@@ -89,7 +89,7 @@ export const mockProducts: Product[] = [
   {
     id: 5,
     name: "Hertz HCP 4D",
-    category: "усилители",
+    category: "Усилители",
     subcategory: "4-канальный",
     price: 28900,
     oldPrice: null,
@@ -108,9 +108,9 @@ export const mockProducts: Product[] = [
     shortDescription: "4-канальный усилитель мощности"
   },
    {
-    id: 7,
+    id: 6,
     name: "Pioneer DEH-S3200BT",
-    category: "головныеУстройства",
+    category: "Головные Устройства",
     subcategory: "1DIN",
     price: 11200,
     oldPrice: 13500,

@@ -47,6 +47,7 @@ const featuredProducts = computed(() => props.products.slice(1, 4))
 .home {
   min-height: 70vh;
   padding: 50px 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .container {
