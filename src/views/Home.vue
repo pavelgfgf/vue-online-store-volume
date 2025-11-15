@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import ProductCard from '@/components/ProductCard.vue'
-import type { Product } from '@/types'
+import type { Product } from '../lib/products/types'
 
 interface Props {
   products: Product[]
@@ -40,7 +40,7 @@ interface Emits {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
-const featuredProducts = computed(() => props.products.slice(0, 4))
+const featuredProducts = computed(() => props.products.slice(0, 6))
 </script>
 
 <style scoped>

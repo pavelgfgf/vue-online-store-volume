@@ -1,7 +1,7 @@
 <template>
   <div class="product-card">
     <div class="product-image">
-      <img :src="getProductImage(product.id)" :alt="product.name" class="product-img" />
+      <img :src="product.images" :alt="product.name" class="product-img" />
     </div>
     <div class="product-info">
       <span class="product-category">{{ product.category }}</span>
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Product } from '@/types'
+import type { Product } from '../lib/products/types'
 
 interface Props {
   product: Product
@@ -34,15 +34,6 @@ interface Emits {
 defineProps<Props>()
 defineEmits<Emits>()
 
-const getProductImage = (productId: number): string => {
-  const images: Record<number, string> = {
-    1: new URL('assets/speakers.jpeg', import.meta.url).href,
-    2: new URL('assets/sub.jpg', import.meta.url).href,
-    3: new URL('@/assets/images/amplifier-1.jpg', import.meta.url).href,
-    4: new URL('@/assets/images/headunit-1.jpg', import.meta.url).href
-  }
-  return images[productId] || new URL('@/assets/images/placeholder.jpg', import.meta.url).href
-}
 </script>
 
 <style scoped>

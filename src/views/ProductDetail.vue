@@ -3,7 +3,7 @@
     <div class="container" v-if="product">
       <div class="product-layout">
         <div class="product-image">
-          <img :src="product.image" :alt="product.name" />
+          <img :src="product.images" :alt="product.name" />
         </div>
         
         <div class="product-info">
@@ -14,7 +14,7 @@
           <div class="product-specs">
             <h3>Характеристики:</h3>
             <ul>
-              <li v-for="(value, key) in product.specs" :key="key">
+              <li v-for="(value, key) in product.features" :key="key">
                 <strong>{{ key }}:</strong> {{ value }}
               </li>
             </ul>
@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import type { Product } from '../types'
+import type { Product } from '../lib/products/types'
 
 interface Props {
   products: Product[]

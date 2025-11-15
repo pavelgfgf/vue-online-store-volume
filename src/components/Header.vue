@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CartItem } from '../types'
+import type { CartItem } from '../lib/products/types'
 
 interface Props {
   cartItems: CartItem[]

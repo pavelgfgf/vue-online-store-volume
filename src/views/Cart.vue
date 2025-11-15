@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import CartItem from '../components/CartItem.vue'
-import type { CartItem as CartItemType, QuantityUpdate } from '../types'
+import type { CartItem as CartItemType, QuantityUpdate } from '../lib/products/types'
 
 interface Props {
   cartItems: CartItemType[]
