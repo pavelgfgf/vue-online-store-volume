@@ -25,8 +25,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import ProductCard from '@/components/ProductCard.vue'
+import { computed } from 'vue'
 import type { Product } from '../lib/products/types'
 
 interface Props {
@@ -40,12 +40,13 @@ interface Emits {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
-const featuredProducts = computed(() => props.products.slice(0, 6))
+const featuredProducts = computed(() => props.products.slice(1, 4))
 </script>
 
 <style scoped>
 .home {
-  min-height: 60vh;
+  min-height: 70vh;
+  padding: 50px 0;
 }
 
 .container {

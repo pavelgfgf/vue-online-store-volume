@@ -15,9 +15,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
+import { ref } from 'vue'
 import { mockProducts } from './lib/products/mocks'
 import type { CartItem, Product, QuantityUpdate } from './lib/products/types'
 
@@ -68,6 +68,5 @@ body {
 
 main {
   flex: 1;
-  padding: 20px 0;
 }
 </style>

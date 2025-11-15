@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Product } from '../lib/products/types'
+import type { Product } from '../lib/products/types';
 
 interface Props {
   product: Product
@@ -53,7 +53,7 @@ defineEmits<Emits>()
 }
 
 .product-image {
-  height: 200px;
+  height: 250px;
   overflow: hidden;
   background: #f8f9fa;
 }
@@ -66,7 +66,7 @@ defineEmits<Emits>()
 }
 
 .product-card:hover .product-img {
-  transform: scale(1.05);
+  transform: scale(1);
 }
 
 .product-info {

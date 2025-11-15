@@ -17,7 +17,7 @@
         <select v-model="selectedBrand" class="filter-select">
           <option value="">Все бренды</option>
           <option value="Pioneer">Pioneer</option>
-          <option value="Alpine">Alpine</option>
+          <option value="Pride">Pride</option>
           <option value="Kenwood">Kenwood</option>
           <option value="JBL">JBL</option>
           <option value="Hertz">Hertz</option>
