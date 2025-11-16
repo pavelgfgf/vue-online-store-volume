@@ -78,7 +78,7 @@ interface Emits {
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+defineEmits<Emits>()
 
 const totalPrice = computed(() => {
   return props.cartItems.reduce((total, item) => {

@@ -38,7 +38,7 @@ interface Emits {
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+defineEmits<Emits>()
 
 const featuredProducts = computed(() => props.products.slice(1, 4))
 </script>
