@@ -2,7 +2,7 @@
   <div class="cart-item">
     <div class="item-info">
       <div class="item-image">
-        <img :src="item.image" :alt="item.name" />
+        <img :src="item.images" :alt="item.name" />
       </div>
       <div class="item-details">
         <h3>{{ item.name }}</h3>
@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CartItem as CartItemType, QuantityUpdate } from '../types'
+import type { CartItem as CartItemType, QuantityUpdate } from '../lib/products/types'
 
 interface Props {
   item: CartItemType
