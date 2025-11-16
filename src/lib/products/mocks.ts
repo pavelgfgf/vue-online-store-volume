@@ -55,7 +55,7 @@ export const mockProducts: Product[] = [
     rating: 4.8,
     reviewsCount: 32,
     inStock: true,
-    images: 'images/magnitola1.jpeg',
+    images: '/images/magnitola1.jpeg',
     features: {
       screen: "6.8\" сенсорный",
       wireless: "Bluetooth, Wi-Fi",

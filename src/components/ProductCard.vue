@@ -101,10 +101,10 @@
 </template>
 
 <script setup lang="ts">
+import { featureLabels } from '@/lib/products/labels';
+import router from '@/router/router';
 import { computed, ref } from 'vue';
 import type { Product } from '../lib/products/types';
-import router from '@/router/router';
-import { featureLabels } from '@/lib/products/labels';
 
 interface Props {
   product: Product;
@@ -259,7 +259,7 @@ const handleImageError = (event: Event) => {
 
 .product-image {
   position: relative;
-  height: 200px;
+  height: 250px;
   border-radius: 16px;
   overflow: hidden;
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
