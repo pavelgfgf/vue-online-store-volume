@@ -14,21 +14,21 @@
             class="nav-link"
             @click="closeMobileMenu"
           >
-            🏠 Главная
+            Главная
           </router-link>
           <router-link 
             to="/catalog" 
             class="nav-link"
             @click="closeMobileMenu"
           >
-            🎧 Каталог
+            Каталог
           </router-link>
           <router-link 
             to="/cart" 
             class="nav-link cart-link"
             @click="closeMobileMenu"
           >
-            🛒 Корзина
+            Корзина
             <span v-if="cartItems.length > 0" class="cart-badge">
               {{ cartItemsCount }}
             </span>
