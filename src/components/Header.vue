@@ -4,7 +4,7 @@
       <div class="header-content">
         <router-link to="/" class="logo">
           <i class="fas fa-volume-up"></i>
-          <h1>#авто<i><span>звукболезнь</span></i></h1>
+          <h1>авто<i><span>звукболезнь</span></i></h1>
         </router-link>
         
         <!-- Десктопная навигация -->

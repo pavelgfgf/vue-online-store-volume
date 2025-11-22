@@ -6,15 +6,16 @@
         <!-- Информационная секция -->
         <div class="footer-section">
           <div class="footer-logo">
-            <div class="logo-text"><span>#авто</span><i>звукболезнь</i></div>
+            <router-link to="/" class="logo-text-a" @click="goToCatalog"
+              ><div class="logo-text"><span>авто</span><i>звукболезнь</i></div></router-link
+            >
           </div>
           <p class="footer-description">
-            Интернет-магазин качественного автозвука. Лучшее оборудование для вашего автомобиля по доступным ценам с гарантией и
-            профессиональной поддержкой.
+            Интернет-магазин качественного автозвука. Лучшее оборудование для вашего автомобиля по доступным ценам с
+            гарантией и профессиональной поддержкой.
           </p>
           <div class="footer-contacts">
-            <div class="contact-item">
-            </div>
+            <div class="contact-item"></div>
             <div class="contact-item">
               <span class="contact-icon">✉️</span>
               <span>info@autosound.ru</span>
@@ -30,11 +31,11 @@
         <div class="footer-section">
           <h4 class="section-title">Магазин</h4>
           <ul class="footer-links">
-            <li><a href="" @click="goToCatalog" class="footer-link">Каталог</a></li>
-            <li><a href="" @click="goToCart" class="footer-link">Корзина</a></li>
-            <li><a href="" @click="goToCatalog" class="footer-link">Акции</a></li>
-            <li><a href="" @click="goToCatalog" class="footer-link">Новинки</a></li>
-            <li><a href="" @click="goToCatalog" class="footer-link">Лидеры продаж</a></li>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Каталог</router-link>
+            <router-link to="/cart" class="footer-link" @click="goToCart">Корзина</router-link>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Акции</router-link>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Новинки</router-link>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Лидеры продаж</router-link>
           </ul>
         </div>
 
@@ -42,11 +43,11 @@
         <div class="footer-section">
           <h4 class="section-title">Категории</h4>
           <ul class="footer-links">
-            <li><a href="" @click="goToCatalog" class="footer-link">Акустика</a></li>
-            <li><a href="" @click="goToCatalog" class="footer-link">Головные устройства</a></li>
-            <li><a href="" @click="goToCatalog" class="footer-link">Сабвуферы</a></li>
-            <li><a href="" @click="goToCatalog" class="footer-link">Усилители</a></li>
-            <li><a href="" @click="goToCatalog" class="footer-link">Аксессуары</a></li>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Акустика</router-link>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Головные устройства</router-link>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Сабвуферы</router-link>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Усилители</router-link>
+            <router-link to="/catalog" class="footer-link" @click="goToCatalog">Аксессуары</router-link>
           </ul>
         </div>
 
@@ -104,7 +105,6 @@
 </template>
 
 <script setup lang="ts">
-import router from '@/router/router';
 import { ref } from 'vue';
 
 const email = ref('');
@@ -119,13 +119,11 @@ const subscribe = (): void => {
 };
 
 const goToCatalog = (): void => {
-  router.push(`/catalog`);
   window.scrollTo({ top: 0, behavior: 'instant' });
 };
 
 const goToCart = (): void => {
-  router.push(`/cart`)
-  window.scrollTo({ top: 0, behavior: 'instant'})
+  window.scrollTo({ top: 0, behavior: 'instant' });
 };
 </script>
 
@@ -173,11 +171,16 @@ const goToCart = (): void => {
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #4CAF50;
+  color: #4caf50;
 }
 
-.logo-text span{
+.logo-text span {
   color: white;
+}
+
+.logo-text-a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .footer-description {
