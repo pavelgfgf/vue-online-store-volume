@@ -49,7 +49,7 @@
               <span class="total-amount">{{ totalPrice }} руб.</span>
             </div>
 
-            <button class="btn btn-success btn-order">
+            <button class="btn btn-success btn-order" @click="showOrderConfirmation">
               Оформить заказ
             </button>
             
@@ -60,11 +60,70 @@
         </div>
       </div>
     </div>
+
+    <!-- Модальное окно подтверждения заказа -->
+    <div v-if="showConfirmationModal" class="modal-overlay" @click.self="closeModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Подтверждение заказа</h3>
+          <button class="modal-close" @click="closeModal">×</button>
+        </div>
+        
+        <div class="order-details">
+          <h4>Детали заказа:</h4>
+          <div class="order-items">
+            <div 
+              v-for="item in cartItems" 
+              :key="item.id" 
+              class="order-item"
+            >
+              <span class="item-name">{{ item.name }}</span>
+              <span class="item-quantity">{{ item.quantity }} шт.</span>
+              <span class="item-price">{{ item.price * item.quantity }} руб.</span>
+            </div>
+          </div>
+          
+          <div class="order-total">
+            <div class="total-row">
+              <span>Итого:</span>
+              <span class="total-amount">{{ totalPrice }} руб.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-secondary" @click="closeModal">
+            Отменить
+          </button>
+          <button class="btn btn-success" @click="confirmOrder">
+            Подтвердить заказ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно успешного оформления -->
+    <div v-if="showSuccessModal" class="modal-overlay success-overlay">
+      <div class="modal-content success-content">
+        <div class="success-icon">✅</div>
+        <h3 class="success-title">Заказ успешно оформлен!</h3>
+        
+        <div class="order-info">
+          <p><strong>Номер заказа:</strong> #{{ orderNumber }}</p>
+          <p>С вами свяжется наш менеджер для подтверждения.</p>
+        </div>
+
+        <button class="btn btn-primary" @click="closeSuccessModal">
+          Продолжить покупки
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import CartItem from '../components/CartItem.vue'
 import type { CartItem as CartItemType, QuantityUpdate } from '../lib/products/types'
 
@@ -75,10 +134,17 @@ interface Props {
 interface Emits {
   (e: 'remove-from-cart', productId: number): void
   (e: 'update-quantity', update: QuantityUpdate): void
+  (e: 'clear-cart'): void
 }
 
 const props = defineProps<Props>()
-defineEmits<Emits>()
+const emit = defineEmits<Emits>()
+const router = useRouter()
+
+// Реактивные переменные для модальных окон
+const showConfirmationModal = ref(false)
+const showSuccessModal = ref(false)
+const orderNumber = ref('')
 
 const totalPrice = computed(() => {
   return props.cartItems.reduce((total, item) => {
@@ -89,6 +155,35 @@ const totalPrice = computed(() => {
 const totalItems = computed(() => {
   return props.cartItems.reduce((total, item) => total + item.quantity, 0)
 })
+
+// Показать модальное окно подтверждения
+const showOrderConfirmation = () => {
+  showConfirmationModal.value = true
+}
+
+// Закрыть модальное окно
+const closeModal = () => {
+  showConfirmationModal.value = false
+}
+
+// Подтвердить заказ
+const confirmOrder = () => {
+  // Генерация номера заказа
+  orderNumber.value = Math.floor(100000 + Math.random() * 900000).toString()
+  
+  // Закрыть окно подтверждения и показать окно успеха
+  showConfirmationModal.value = false
+  showSuccessModal.value = true
+  
+  // Очистка корзины
+  emit('clear-cart')
+}
+
+// Закрыть окно успеха и перейти на главную
+const closeSuccessModal = () => {
+  showSuccessModal.value = false
+  router.push('/')
+}
 </script>
 
 <style scoped>
@@ -133,7 +228,7 @@ const totalItems = computed(() => {
   padding: 4rem 2rem;
   background: white;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   margin: 2rem 0;
 }
 
@@ -176,7 +271,7 @@ const totalItems = computed(() => {
   background: white;
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid #e1e8ed;
 }
 
@@ -255,7 +350,6 @@ const totalItems = computed(() => {
   color: white;
   font-size: 1.1rem;
   padding: 15px;
-  margin-bottom: 1rem;
 }
 
 .btn-success:hover {
@@ -325,18 +419,18 @@ const totalItems = computed(() => {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .cart-summary {
     position: static;
     order: -1;
   }
-  
+
   .cart-header {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
-  
+
   .cart-title {
     font-size: 2rem;
   }
@@ -346,14 +440,195 @@ const totalItems = computed(() => {
   .cart {
     padding: 1rem 0;
   }
-  
+
   .summary-card {
     padding: 1.5rem;
   }
-  
+
   .empty-cart {
     padding: 3rem 1rem;
     margin: 1rem 0;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: #333;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+}
+
+.order-details {
+  padding: 24px;
+}
+
+.order-details h4 {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.order-items {
+  margin-bottom: 20px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.item-quantity {
+  margin: 0 16px;
+  color: #666;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+.order-total {
+  border-top: 2px solid #e5e5e5;
+  padding-top: 16px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #fafafa;
+}
+
+.modal-actions .btn {
+  flex: 1;
+}
+
+/* Стили для модального окна успеха */
+.success-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.success-content {
+  text-align: center;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.success-title {
+  color: #2e7d32;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.order-info {
+  margin-bottom: 24px;
+  text-align: left;
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.order-info p {
+  margin: 8px 0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .modal-content {
+    margin: 20px;
+    max-height: calc(100vh - 40px);
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .item-quantity {
+    margin: 0;
   }
 }
 </style>
